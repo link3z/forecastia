@@ -1,0 +1,129 @@
+// ForecastIA - Esquema de base de datos (PostgreSQL + Prisma)
+// Ver docs/08-modelo-datos.md para el detalle del modelo.
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  name         String
+  email        String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  businesses   Business[]
+
+  @@map("users")
+}
+
+model Business {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  type         String
+  location     String
+  currency     String   @default("EUR")
+  startDate    DateTime
+  isSeasonal   Boolean  @default(false)
+  seasonStart  DateTime?
+  seasonEnd    DateTime?
+  thresholds   Json     // umbrales de predicción por defecto, ej. [100, 200, 300, 500, 1000]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  predictiveVariableConfig PredictiveVariableConfig?
+  dailyRecords             DailyRecord[]
+  businessMetrics          BusinessMetrics?
+  forecasts                Forecast[]
+
+  @@index([userId])
+  @@map("businesses")
+}
+
+model PredictiveVariableConfig {
+  id                  String   @id @default(uuid())
+  businessId          String   @unique
+  business            Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  useWeather          Boolean  @default(true)
+  useTemperature      Boolean  @default(true)
+  useRain             Boolean  @default(true)
+  useWind             Boolean  @default(false)
+  useEvents           Boolean  @default(true)
+  useCampaigns        Boolean  @default(true)
+  useSocialFollowers  Boolean  @default(false)
+  useObservations     Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("predictive_variable_configs")
+}
+
+model DailyRecord {
+  id              String   @id @default(uuid())
+  businessId      String
+  business        Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  date            DateTime
+  revenue         Decimal  @db.Decimal(12, 2)
+  tickets         Int
+  averageTicket   Decimal  @db.Decimal(12, 2)
+  weather         String?
+  tempMax         Decimal? @db.Decimal(5, 2)
+  tempMin         Decimal? @db.Decimal(5, 2)
+  rain            String?
+  wind            String?
+  event           String?
+  campaign        String?
+  socialFollowers Int?
+  observations    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([businessId, date])
+  @@index([businessId])
+  @@map("daily_records")
+}
+
+model BusinessMetrics {
+  id                    String   @id @default(uuid())
+  businessId            String   @unique
+  business              Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  totalRevenue          Decimal  @db.Decimal(14, 2)
+  averageDailyRevenue   Decimal  @db.Decimal(12, 2)
+  totalTickets          Int
+  globalAverageTicket   Decimal  @db.Decimal(12, 2)
+  bestDay               Json?    // { date, revenue }
+  worstDay              Json?    // { date, revenue }
+  recordsCount          Int      @default(0)
+  recentTrend           Decimal  @db.Decimal(6, 4) @default(0)
+  updatedAt             DateTime @updatedAt
+
+  @@map("business_metrics")
+}
+
+model Forecast {
+  id                  String   @id @default(uuid())
+  businessId          String
+  business            Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  targetDate          DateTime
+  expectedRevenue     Decimal  @db.Decimal(12, 2)
+  minRevenue          Decimal  @db.Decimal(12, 2)
+  maxRevenue          Decimal  @db.Decimal(12, 2)
+  pessimisticScenario Decimal  @db.Decimal(12, 2)
+  averageScenario     Decimal  @db.Decimal(12, 2)
+  optimisticScenario  Decimal  @db.Decimal(12, 2)
+  probabilities       Json     // { "100": 0.95, "200": 0.8, ... }
+  influencingFactors  Json     // lista de factores y su peso/efecto
+  aiExplanation       String?
+  inputVariables      Json     // snapshot de las variables usadas para generar la predicción
+  createdAt           DateTime @default(now())
+
+  @@index([businessId])
+  @@map("forecasts")
+}
