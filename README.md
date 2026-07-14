@@ -10,6 +10,17 @@
 
 ForecastIA permite a propietarios y gestores de pequeños negocios (chiringuitos, cafeterías, food trucks, heladerías, terrazas) registrar su histórico de caja diaria, analizar tendencias y obtener predicciones de ingresos futuros con explicaciones en lenguaje natural generadas por IA.
 
+
+## Despliegue online
+
+| Servicio  | URL                                                                      |
+|-----------|--------------------------------------------------------------------------|
+| Frontend  | https://forecastia-cdu2tb1lc-recompila.vercel.app                       |
+| API       | https://forecastiaapi-production.up.railway.app/api/health               |
+
+- **Frontend**: desplegado en [Vercel](https://vercel.com) desde `apps/web`.
+- **API + Base de datos**: desplegados en [Railway](https://railway.app) con PostgreSQL gestionado.
+
 ## Stack tecnológico
 
 | Capa       | Tecnología                                    |
