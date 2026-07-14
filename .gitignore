@@ -4,6 +4,8 @@ node_modules/
 # Build output
 dist/
 build/
+# Keep pre-built shared package dist (needed for Vercel deployment)
+!packages/shared/dist/
 
 # Env
 .env
