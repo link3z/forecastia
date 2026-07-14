@@ -1,6 +1,6 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "npm run build:web",
+  "buildCommand": "cd packages/shared && npm run build && cd ../../apps/web && npx vite build",
   "outputDirectory": "apps/web/dist",
   "framework": null
 }
