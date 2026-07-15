@@ -32,3 +32,6 @@ test-results/
 
 # Misc
 *.tsbuildinfo
+
+# Guion privado del video (no publicar)
+docs/video-script.md

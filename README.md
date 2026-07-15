@@ -11,11 +11,26 @@
 ForecastIA permite a propietarios y gestores de pequeños negocios (chiringuitos, cafeterías, food trucks, heladerías, terrazas) registrar su histórico de caja diaria, analizar tendencias y obtener predicciones de ingresos futuros con explicaciones en lenguaje natural generadas por IA.
 
 
+## Entregables del TFM
+
+| Recurso        | Enlace                                                                   |
+|----------------|--------------------------------------------------------------------------|
+| Aplicación     | https://forecastia-api.vercel.app                                        |
+| Repositorio    | https://github.com/link3z/forecastia                                     |
+| Vídeo          | https://youtu.be/jDo5lAfM4nM                                             |
+| Presentación   | https://docs.google.com/presentation/d/1d4zmVL9KdVDihu5q-_EldKulLbgXkET6/edit?usp=sharing |
+
+**Usuario de prueba:** `demo@forecastia.app` / `Demo1234!`
+
+> **Copias de respaldo en el repositorio:** si alguno de los enlaces externos no funciona, el material está también en este repositorio:
+> - **Vídeo**: [`forecastia-video.mp4`](forecastia-video.mp4) (raíz del proyecto).
+> - **Presentación**: [`forecastia-slides.pptx`](forecastia-slides.pptx) (raíz del proyecto).
+
 ## Despliegue online
 
 | Servicio  | URL                                                                      |
 |-----------|--------------------------------------------------------------------------|
-| Frontend  | https://forecastia-cdu2tb1lc-recompila.vercel.app                       |
+| Frontend  | https://forecastia-api.vercel.app                                        |
 | API       | https://forecastiaapi-production.up.railway.app/api/health               |
 
 - **Frontend**: desplegado en [Vercel](https://vercel.com) desde `apps/web`.
