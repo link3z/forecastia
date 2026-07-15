@@ -18,9 +18,12 @@ ForecastIA permite a propietarios y gestores de pequeños negocios (chiringuitos
 | Aplicación     | https://forecastia-api.vercel.app                                        |
 | Repositorio    | https://github.com/link3z/forecastia                                     |
 | Vídeo          | https://youtu.be/jDo5lAfM4nM                                             |
-| Presentación   | https://docs.google.com/presentation/d/1d4zmVL9KdVDihu5q-_EldKulLbgXkET6/edit?usp=sharing |
+| Presentación   | https://docs.google.com/presentation/d/1d4zmVL9KdVDihu5q-_EldKulLbgXkET6 |
 
-**Usuario de prueba:** `demo@forecastia.app` / `Demo1234!`
+**Usuario de demo (necesario para entrar a la aplicación):**
+
+- **Usuario:** `demo@forecastia.app`
+- **Clave:** `Demo1234!`
 
 > **Copias de respaldo en el repositorio:** si alguno de los enlaces externos no funciona, el material está también en este repositorio:
 > - **Vídeo**: [`forecastia-video.mp4`](forecastia-video.mp4) (raíz del proyecto).
